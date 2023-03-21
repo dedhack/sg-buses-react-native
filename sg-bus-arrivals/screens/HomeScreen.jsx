@@ -4,7 +4,7 @@ import React from "react";
 const HomeScreen = ({ navigation }) => {
   return (
     <View>
-      <Text>HomeScreen</Text>
+      <Text className="text-red-900">HomeScreen</Text>
     </View>
   );
 };
