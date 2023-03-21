@@ -1,3 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-export const store = configureStore({});
+export const busStore = configureStore({
+  reducer: {},
+});

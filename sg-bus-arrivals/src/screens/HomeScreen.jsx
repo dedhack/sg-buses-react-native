@@ -3,7 +3,7 @@ import React from "react";
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <View>
+    <View className="">
       <Text className="text-red-900">HomeScreen</Text>
     </View>
   );
