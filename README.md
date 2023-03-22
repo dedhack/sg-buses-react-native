@@ -4,6 +4,7 @@ Bus arrival app using react native for android and ios.
 This is my first time trying to build my own app in react-native.
 
 ![Search](/sg-bus-arrivals/assets/Search.png)
+<img src='/sg-bus-arrivals/assets/Search.png' style='height: 400px'/>
 
 Basic Features:
 
