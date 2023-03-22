@@ -3,6 +3,8 @@ import React from "react";
 import { useGetBusStopBusesQuery } from "../features/busSlice";
 import { timeToArrival } from "../features/timeHelper";
 
+import BusRow from "../components/BusRow";
+
 const HomeScreen = ({ navigation }) => {
   const { data, error, isLoading } = useGetBusStopBusesQuery("84629");
 
@@ -12,25 +14,15 @@ const HomeScreen = ({ navigation }) => {
   }
 
   let buses = data?.Services?.map((bus) => {
-    const convertedArrivalTime = timeToArrival(bus.NextBus.EstimatedArrival);
-
-    return (
-      <View key={bus.ServiceNo}>
-        <Text>{bus.ServiceNo}</Text>
-        <Text>{bus.NextBus.EstimatedArrival}</Text>
-        <Text>{convertedArrivalTime}</Text>
-        <Text>{bus.NextBus.Load}</Text>
-        <Text>{bus.NextBus2.EstimatedArrival}</Text>
-      </View>
-    );
+    // pass to BusRow component the bus object
+    return <BusRow bus={bus} />;
   });
 
   return (
-    <View className="">
-      <Text className="text-red-900">HomeScreen</Text>
+    <View className="bg-gray-900 flex-1">
       {isLoading && <Text>Loading...</Text>}
       {error && <Text>Error: {error}</Text>}
-      {buses}
+      {buses ? buses : null}
     </View>
   );
 };

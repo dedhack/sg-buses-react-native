@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 //screens
 import HomeScreen from "./src/screens/HomeScreen";
 import NearbyScreen from "./src/screens/NearbyScreen";
+import FavoriteScreen from "./src/screens/FavoriteScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Nearby" component={NearbyScreen} />
+          <Stack.Screen name="Favorite" component={FavoriteScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
