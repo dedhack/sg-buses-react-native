@@ -1,9 +1,14 @@
 import { View, Text, FlatList } from "react-native";
 import React from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { timeToArrival } from "../features/timeHelper";
 
-import { MaterialIcons } from "@expo/vector-icons";
+const busAvailability = {
+  SEA: "green",
+  SDA: "yellow",
+  LSD: "red",
+};
 
 const BusRow = ({ bus }) => {
   // for each bus object, we will want to retrieve the following data:
@@ -20,16 +25,34 @@ const BusRow = ({ bus }) => {
 
   // conditional rendering for bus seats
   let busSeats = null;
-  if (bus.NextBus.Load === "SEA") {
-    busSeats = <MaterialIcons name="directions-bus" size={24} color="white" />;
-  } else if (bus.NextBus.Load === "SDA") {
-    busSeats = <MaterialIcons name="directions-bus" size={24} color="yellow" />;
-  } else if (bus.NextBus.Load === "LSD") {
-    busSeats = <MaterialIcons name="directions-bus" size={24} color="red" />;
+  if (bus.NextBus.Type === "SD") {
+    busSeats = (
+      <MaterialCommunityIcons
+        name="bus-side"
+        size={24}
+        color={busAvailability[bus.NextBus.Load]}
+      />
+    );
+  } else if (bus.NextBus.Type === "DD") {
+    busSeats = (
+      <MaterialCommunityIcons
+        name="bus-double-decker"
+        size={24}
+        color={busAvailability[bus.NextBus.Load]}
+      />
+    );
+  } else if (bus.NextBus.Type === "BD") {
+    busSeats = (
+      <MaterialCommunityIcons
+        name="bus-articulated-front"
+        size={24}
+        color={busAvailability[bus.NextBus.Load]}
+      />
+    );
   }
 
   return (
-    <View className="flex-row justify-between border-2 border-gray-500 rounded-md my-1 p-2 ">
+    <View className="flex-row justify-between content-center border-2 border-gray-500 rounded-md my-1 p-2">
       <Text className="flex-1 font-bold text-xl text-white">
         {bus.ServiceNo}
       </Text>
@@ -37,11 +60,12 @@ const BusRow = ({ bus }) => {
       <Text className="flex-1  text-sm text-white">{secondArrival}</Text>
       <Text className="flex-1  text-sm text-white">{thirdArrival}</Text>
 
-      <Text className="flex-1  text-sm text-white">{bus.NextBus.Load}</Text>
+      {/* <Text className="flex-1  text-sm text-white">{bus.NextBus.Load}</Text> */}
       {busSeats}
-      <Text className="text-sm text-white">
-        {/* {bus.NextBus2.EstimatedArrival} */}
-      </Text>
+      <View>
+        <Text className="text-xs text-white">{bus.NextBus.Type}</Text>
+        <Text className="text-xs text-white">{bus.NextBus.Feature}</Text>
+      </View>
     </View>
   );
 };
