@@ -18,7 +18,10 @@ export const busApi = createApi({
     }),
 
     updateBusStopBuses: builder.mutation({
-      query: (busStopCode) => `?BusStopCode=${busStopCode}`,
+      query: (busStopCode) => ({
+        url: `?BusStopCode=${busStopCode}`,
+        method: "GET",
+      }),
       invalidatesTags: ["BusArrival"],
     }),
   }),

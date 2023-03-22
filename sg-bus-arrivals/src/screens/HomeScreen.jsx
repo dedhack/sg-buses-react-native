@@ -11,7 +11,7 @@ import { SearchBar } from "@rneui/themed";
 const HomeScreen = ({ navigation }) => {
   const [search, setSearch] = useState("");
 
-  const { data, error, isLoading } = useGetBusStopBusesQuery(search || null);
+  const { data, error, isLoading } = useGetBusStopBusesQuery(search);
   const [updateBusStopBuses, result] = useUpdateBusStopBusesMutation();
 
   const submitBusStop = async (busStopNumber) => {
