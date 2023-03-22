@@ -9,16 +9,20 @@ export const busApi = createApi({
     },
   }),
 
-  tagTypes: ["BusStopBuses"],
+  tagTypes: ["BusArrival"],
 
   endpoints: (builder) => ({
     getBusStopBuses: builder.query({
       query: (busStopCode) => `?BusStopCode=${busStopCode}`,
-      providesTags: (result, error, busStopCode) => [
-        { type: "BusStopBuses", busStopCode },
-      ],
+      providesTags: ["BusArrival"],
+    }),
+
+    updateBusStopBuses: builder.mutation({
+      query: (busStopCode) => `?BusStopCode=${busStopCode}`,
+      invalidatesTags: ["BusArrival"],
     }),
   }),
 });
 
-export const { useGetBusStopBusesQuery } = busApi;
+export const { useGetBusStopBusesQuery, useUpdateBusStopBusesMutation } =
+  busApi;

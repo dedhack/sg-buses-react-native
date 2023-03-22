@@ -1,16 +1,22 @@
 import { View, Text, FlatList } from "react-native";
 import React, { useState } from "react";
-import { useGetBusStopBusesQuery } from "../features/busSlice";
+import {
+  useGetBusStopBusesQuery,
+  useUpdateBusStopBusesMutation,
+} from "../features/busSlice";
 
 import BusRow from "../components/BusRow";
 import { SearchBar } from "@rneui/themed";
 
 const HomeScreen = ({ navigation }) => {
-  const { data, error, isLoading } = useGetBusStopBusesQuery("84629");
   const [search, setSearch] = useState("");
 
-  const submitBusStop = (busStopNumber) => {
+  const { data, error, isLoading } = useGetBusStopBusesQuery(search || null);
+  const [updateBusStopBuses, result] = useUpdateBusStopBusesMutation();
+
+  const submitBusStop = async (busStopNumber) => {
     console.log("submitting bus stop", busStopNumber);
+    await updateBusStopBuses(busStopNumber);
   };
 
   return (
@@ -24,10 +30,10 @@ const HomeScreen = ({ navigation }) => {
         }}
       />
       <Text>Bus Stop: {search}</Text>
-      {isLoading && <Text>Loading...</Text>}
+      {isLoading && <Text className="text-white">Loading...</Text>}
       {error && <Text>Error: {error}</Text>}
 
-      {data?.Services && !isLoading ? (
+      {data && !isLoading ? (
         <FlatList
           className="mt-4"
           data={data.Services}
